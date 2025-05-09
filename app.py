@@ -2,7 +2,7 @@ import streamlit as st
 import random
 import time
 import re
-# from streamlit.web import st_autorefresh 에러발생생
+import streamlit.components.v1 as components
 
 # --- 1) 원문 데이터 & 유틸리티 함수 ---
 original_text = """할루시네이션은 환각 또는 망상 등으로 불리며, AI가 생성한 정보에 허위 또는 날조된 정보가 포함되는 현상이다. 
@@ -79,9 +79,9 @@ def evaluate_summary(user_summary: str, error_sents: list):
     total = len(error_sents)
     fixed = sum(1 for err in error_sents if err not in user_summary)
     pct = (fixed / total * 100) if total else 0
-    if pct >= 85:   grade = "A"
-    elif pct >= 65: grade = "B"
-    elif pct >= 40: grade = "C"
+    if pct >= 90:   grade = "A"
+    elif pct >= 75: grade = "B"
+    elif pct >= 50: grade = "C"
     else:
         grade = "D"    # 여기서 F는 절대 안 내려줍니다.
     return fixed, total, pct, grade
@@ -95,15 +95,16 @@ if "start_time" not in st.session_state: st.session_state.start_time = None
 
 st.set_page_config(layout="wide")
 
-# 페이지를 1초마다 자동 리프레시해 줍니다--실시간 업데이트 에러발생.
-# st_autorefresh(interval=1000, key="timer_refresh")
+# 1) 게임 시작 시점에 타이머 총시간(초)을 session_state 에 저장
+if "start_time" not in st.session_state:
+    st.session_state.start_time = None
 
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
     st.title("🎮 할루시네이션 게임")
     st.markdown("**게임 설명:** 제한 시간 5분 내로 최대한 정확하게 요약 과제를 제출하라")
     if st.button("다음", key="start_next"):
-        st.session_state.start_time = time.time()
+        st.session_state.start_time = int(time.time())
         st.session_state.stage      = "awaiting_task"
     st.stop()
 
@@ -121,22 +122,44 @@ if st.session_state.stage not in (
         remaining = max(0, 300 - int(elapsed))
         m, s      = divmod(remaining, 60)
 
-        # HTML <progress> 로 바 만들기
-        st.markdown(f"""
-            <div class="timer-bar">
-              <progress max="300" value="{remaining}" style="width:100%; height:12px;">    </progress>
-            </div>
-            <div class="timer-container">⏰남은 시간: {m:02d}:{s:02d}</div>
-        """, unsafe_allow_html=True)
 
-        # 시간 종료 시 처리
-        if remaining <= 0 and st.session_state.stage != "finished":
-            st.session_state.chat.append({
-                "role":"assistant",
-                "content":"⏰ **시간 종료!** 자동 F 처리되었습니다.🥲📻"
-            })
-            st.session_state.stage = "finished"
+    # HTML + JS로 프로그래스바 및 타이머 출력
+    js_progress = f"""
+    <div style="margin-bottom:10px;">
+      <progress id="prog" max="300" value="{remaining}"
+                style="width:100%; height:12px;"></progress>
+    </div>
+    <div style="font-size:18px; font-weight:bold;">
+      ⏰ 남은 시간: <span id="timer">{remaining//60:02d}:{remaining%60:02d}</span>
+    </div>
+    <script>
+      let rem = {remaining};
+      const prog = document.getElementById('prog');
+      const timerEl = document.getElementById('timer');
 
+      setInterval(() => {{
+        if (rem > 0) {{
+          rem -= 1;
+          prog.value = rem;  // 프로그래스바 값 갱신
+          const m = String(Math.floor(rem/60)).padStart(2,'0');
+          const s = String(rem%60).padStart(2,'0');
+          timerEl.textContent = `${{m}}:${{s}}`;  // 타이머 텍스트 갱신
+        }} else {{
+          prog.value = 0;
+          timerEl.textContent = "00:00";
+        }}
+      }}, 1000);
+    </script>
+    """
+    components.html(js_progress, height=80, scrolling=False)
+
+    # 남은 시간이 0이 되면 서버 세션 상태 변경
+    if remaining <= 0 and st.session_state.stage != "finished":
+        st.session_state.chat.append({
+            "role":"assistant",
+            "content":"⏰ **시간 종료!** 자동 F 처리되었습니다."
+        })
+        st.session_state.stage = "finished"
 
     # --- 5) 첫 인사 (awaiting_task) ---
     if st.session_state.stage == "awaiting_task" and not st.session_state.chat:
