@@ -2,7 +2,7 @@ import streamlit as st
 import random
 import time
 import re
-from streamlit_autorefresh import st_autorefresh
+from streamlit.web import st_autorefresh
 
 # --- 1) 원문 데이터 & 유틸리티 함수 ---
 original_text = """할루시네이션은 환각 또는 망상 등으로 불리며, AI가 생성한 정보에 허위 또는 날조된 정보가 포함되는 현상이다. 
