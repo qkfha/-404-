@@ -2,6 +2,7 @@ import streamlit as st
 import random
 import time
 import re
+# from streamlit_autorefresh import st_autorefresh 에러 발생!!!!
 
 # --- 1) 원문 데이터 & 유틸리티 함수 ---
 original_text = """할루시네이션은 환각 또는 망상 등으로 불리며, AI가 생성한 정보에 허위 또는 날조된 정보가 포함되는 현상이다. 
@@ -94,8 +95,8 @@ if "start_time" not in st.session_state: st.session_state.start_time = None
 
 st.set_page_config(layout="wide")
 
-# 페이지를 1초마다 자동 리프레시해 줍니다
-# st_autorefresh(interval=1000, key="timer_refresh")
+# 페이지를 1초마다 자동 리프레시해 줍니다--실시간 업데이트트
+# st_autorefresh(interval=1000, key="timer_refresh") 에러발생!!
 
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
