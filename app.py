@@ -79,9 +79,9 @@ def evaluate_summary(user_summary: str, error_sents: list):
     total = len(error_sents)
     fixed = sum(1 for err in error_sents if err not in user_summary)
     pct = (fixed / total * 100) if total else 0
-    if pct >= 90:   grade = "A"
-    elif pct >= 75: grade = "B"
-    elif pct >= 50: grade = "C"
+    if pct >= 85:   grade = "A"
+    elif pct >= 65: grade = "B"
+    elif pct >= 40: grade = "C"
     else:
         grade = "D"    # 여기서 F는 절대 안 내려줍니다.
     return fixed, total, pct, grade
