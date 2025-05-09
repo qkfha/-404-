@@ -96,7 +96,7 @@ if "start_time" not in st.session_state: st.session_state.start_time = None
 st.set_page_config(layout="wide")
 
 # 페이지를 1초마다 자동 리프레시해 줍니다--실시간 업데이트트
-st_autorefresh(interval=1000, key="timer_refresh") 에러발생!!
+st_autorefresh(interval=1000, key="timer_refresh")
 
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
