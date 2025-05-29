@@ -9,9 +9,8 @@ original_text = """할루시네이션은 환각 또는 망상 등으로 불리�
 할루시네이션은 실제 사실과 AI를 거친 정보가 다른 내재성 환각과 실제로 존재하지 않는 사실을 창작해서 제공하는 외재적 환각으로 나뉜다.
 챗GPT에 질문을 했는데 역사적 사실을 왜곡하거나, 이미지 생성 시 현실 법칙에 위배된 이미지 등을 제공하는 게 할루시네이션의 영향이다. 
 할루시네이션은 자연어 처리를 넘어 거의 모든 AI 분야에서 발생한다. 
-예를 들어 사람이나 물체를 감지하는 AI가 사람을 전혀 다른 사물로 인지하거나, 제3의 사물을 사람으로 인식할 수 있다. 
 사용자 입장에서 외재성 환각은 구분하기 쉽지만, 교묘하게 숫자나 출처가 바뀐 내재성 환각은 구분이 어렵다. 
-앞서 갭 수익 보고서처럼 숫자만 다르거나, 요약하라고 하면 원본 데이터와 대조해보지 않고서는 사실 여부를 판단하기가 어렵다. 
+수익 보고서처럼 숫자만 다르거나, 요약하라고 하면 원본 데이터와 대조해보지 않고서는 사실 여부를 판단하기가 어렵다. 
 특히 GPT-3처럼 데이터가 한정된 생성형 AI일수록 할루시네이션 발생이 심하다. 
 할루시네이션을 최대한 피하기 위해서는 데이터의 출처를 확실히 해야 한다. 
 유료 서비스인 GPT4는 웹 연동 서비스를 통해 매개변수를 포함한 웹 기반 데이터도 검색하는 기능이 있다. 
@@ -19,21 +18,15 @@ original_text = """할루시네이션은 환각 또는 망상 등으로 불리�
 프롬프트를 정밀하게 입력하는 것도 도움이 된다. 
 AI의 답변은 정보를 나열했을 뿐, 이해하고 제공하는 게 아니다. 
 따라서 질문할 때 ‘공식 보고서나 논문 검색 등을 인용해서’ 설명해 달라고 하거나, ‘최근 5년 간, 국내에서 기사로 확인할 수 있는 내용’ 같은 문장을 덧붙이면 정확성이 향상된다.
-안타깝게도 아직까지 AI에서 할루시네이션이 발생하는 원인은 완전히 파악되지 않았다. 
-심지어는 AI가 결과를 도출하는 과정도 미지수다. 
 우리가 AI에 주문을 내리면, 컴퓨터가 학습한 데이터로 연산을 처리한 뒤 결론을 도출한다. 
 문제는 어떤 데이터가 어떻게 상호 영향을 미쳤는지 인과관계를 파악하기 어렵고, 이 과정에서 할루시네이션이 발생한다.
-제약 회사에서 AI를 활용해 혁신적인 신약 후보물질을 만들었다고 가정하자. 
-이때 신약 물질을 만드는 수식을 명령으로 내렸고, 신약 후보 물질의 구조를 만드는 것까지는 확인할 수 있다. 
-하지만 AI 내부에서 어떤 데이터를 활용하고 조합했을지까지는 완벽하게 분석할 수 없다. 
-이 문제를 블랙박스 현상이라고 하며, 최근에는 도출 과정까지 명확하게 확인할 수 있는 설명 가능한 AI(Explainable AI)에 대한 연구가 이어지고 있다.
 """
 # ──────────────────────────────────────────
 # 오류 포함 요약문 예시 (동아일보 기사 기반)
 ERROR_SUMMARY_EXAMPLE = """\
 ✅정의\n\n
 • AI가 고의로 정보를 삭제하거나 과장해 생성하는 현상.\n
-• ‘환각(hallucination)’ 또는 ‘망상’으로 비유됨.\n\n
+• ‘환각(hallucination)’ 또는 ‘함정’으로 비유됨.\n\n
 
 ✅유형\n\n
 • 내재성 환각: 완전히 존재하지 않는 정보를 창작해 제공하는 경우\n
@@ -44,11 +37,7 @@ ERROR_SUMMARY_EXAMPLE = """\
 • 단순 오류와 달리, “존재하지 않는 객체 인식” 등의 심각한 오작동을 유발할 수 있음.\n\n
 
 ✅구분의 어려움\n\n
-• 외재성 환각은 원본을 대조하지 않아도 눈으로 바로 구분할 수 있다\n\n
-
-✅블랙박스 & 설명 가능한 AI\n\n
-• AI 내부 처리 과정을 완벽히 알 수 있는 ‘블랙박스 현상’ 존재.\n
-• 이를 해소하기 위한 Explainable AI 연구가 활발히 진행 중.\n\n
+• 외재성 환각은 원본을 대조하지 않아도 눈으로 바로 구분할 수 있다.\n\n
 """
 
 sentences = [line for line in original_text.split("\n") if line.strip()]
@@ -70,10 +59,6 @@ CORRECT_SUMMARY_EXAMPLE = """\
 
 ✅구분의 어려움\n\n
 • 외재성 환각은 눈으로 확인하기 쉽지만, 내재성 환각은 원본과 대조하지 않으면 판별이 어려움.\n\n
-
-✅블랙박스 & 설명 가능한 AI\n\n
-• AI가 어떻게 결과를 도출했는지 내부 작동을 알 수 없는 ‘블랙박스 현상’ 존재\n
-• 이를 해소하기 위한 Explainable AI 연구가 활발히 진행 중.
 """
 def evaluate_summary(user_summary: str, error_sents: list):
     total = len(error_sents)
@@ -101,8 +86,8 @@ if "start_time" not in st.session_state:
 
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
-    st.title("🎮 할루시네이션 게임")
-    st.markdown("**게임 설명:** 제한 시간 5분 내로 최대한 정확하게 요약 과제를 제출하라")
+    st.title("🎮 AI 할루시네이션 게임")
+    st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 '정확하게' 요약 과제를 제출하라")
     if st.button("다음", key="start_next"):
         st.session_state.start_time = int(time.time())
         st.session_state.stage      = "awaiting_task"
@@ -165,7 +150,7 @@ if st.session_state.stage not in (
     if st.session_state.stage == "awaiting_task" and not st.session_state.chat:
         st.session_state.chat.append({
             "role": "assistant",
-            "content": "안녕하세요! ‘요약 과제’ 또는 ‘요약과제’라고 입력해 주세요."
+            "content": "안녕하세요! **'요약 과제'** 또는 **'요약과제'** 라고 입력해 주세요."
         })
 
     # --- 7) 입력 처리 & 단계 전환 ---
@@ -182,7 +167,7 @@ if st.session_state.stage not in (
                 "role": "assistant",
                 "content": "📄 **요약 과제 (원문)**\n"
                            + "\n".join(f"- {s}" for s in sentences)
-                           + "\n\n이제 ‘요약해줘’를 입력해 주세요."
+                           + "\n\n➜ 이제 **‘요약해줘’** 를 입력해 주세요."
             })
             st.session_state.stage = "awaiting_summary"
 
@@ -193,7 +178,7 @@ if st.session_state.stage not in (
                 "content": (
                     "📝 **요약본**\n\n"  # 여기서 두 줄 바꿈
                     + ERROR_SUMMARY_EXAMPLE
-                    + "\n\n이제 옵션(과제함 이동, 다시 요약해줘, 출처 알려줘)을 입력하세요."
+                    + "\n\n➜ 다음으로 옵션(**'과제함 이동', '다시 요약해줘', '출처 알려줘'**) 중 하나를 입력하세요."
                 )
             })
             st.session_state.stage = "awaiting_option"
@@ -219,7 +204,8 @@ if st.session_state.stage not in (
 
                 st.session_state.chat.append({
                     "role": "assistant",
-                    "content": "🛠 다시 요약본 :\n\n" + fixed_summary
+                    "content": "🛠 다시 요약본 :\n\n" + fixed_summary +
+                    "\n\n➜ 옵션(**'과제함 이동', '다시 요약해줘', '출처 알려줘'**) 중 하나를 입력하세요."
                 })
 
             elif cmd in ("출처 알려줘", "출처알려줘"):
@@ -228,6 +214,7 @@ if st.session_state.stage not in (
                     "content": (
                         "https://www.donga.com/news/It/article/all/20240329/124227094/1\n\n"
                         "출처: 동아일보·동아닷컴, 남시현 기자, 2024-03-29 21:59"
+                        "\n\n➜ 옵션(**'과제함 이동', '다시 요약해줘', '출처 알려줘'**) 중 하나를 입력하세요."
                     )
                 })
 
