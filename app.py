@@ -188,7 +188,8 @@ if st.session_state.stage not in (
             if cmd in ("과제함 이동", "과제함이동"):
                 st.session_state.chat.append({
                     "role": "assistant",
-                    "content": "과제함으로 이동했습니다.\n최종 요약문을 작성한 뒤 ‘최종 제출’을 눌러주세요."
+                    "content": "과제함으로 이동했습니다.\n최종 요약문을 작성한 뒤 ‘최종 제출’을 눌러주세요." +
+                    "\n\n(완성된 요약문을 복사 후 붙여넣기 하여 과제함에 입력해 주세요.)"
                 })
                 st.session_state.stage = "awaiting_final"
 
