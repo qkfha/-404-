@@ -60,16 +60,6 @@ CORRECT_SUMMARY_EXAMPLE = """\
 ✅구분의 어려움\n\n
 • 외재성 환각은 눈으로 확인하기 쉽지만, 내재성 환각은 원본과 대조하지 않으면 판별이 어려움.\n\n
 """
-def evaluate_summary(user_summary: str, error_sents: list):
-    total = len(error_sents)
-    fixed = sum(1 for err in error_sents if err not in user_summary)
-    pct = (fixed / total * 100) if total else 0
-    if pct >= 90:   grade = "A"
-    elif pct >= 75: grade = "B"
-    elif pct >= 50: grade = "C"
-    else:
-        grade = "D"    # 여기서 F는 절대 안 내려줍니다.
-    return fixed, total, pct, grade
 
 # --- 2) 세션 초기화 & 페이지 설정 ---
 if "stage"      not in st.session_state: st.session_state.stage      = "start"
@@ -77,6 +67,10 @@ if "chat"       not in st.session_state: st.session_state.chat       = []
 if "errors"     not in st.session_state: st.session_state.errors     = []
 if "error_origin" not in st.session_state: st.session_state.error_origin = []
 if "start_time" not in st.session_state: st.session_state.start_time = None
+
+# ------- 새로 추가된 score 초기화 --------
+if "score" not in st.session_state:
+    st.session_state.score = 50
 
 st.set_page_config(layout="wide")
 
@@ -194,6 +188,8 @@ if st.session_state.stage not in (
                 st.session_state.stage = "awaiting_final"
 
             elif cmd in ("다시 요약해줘", "다시요약해줘", "다시 요약", "다시요약"):
+                # ------- 점수 증가 로직 --------
+                st.session_state.score += 25
                 err_lines = ERROR_SUMMARY_EXAMPLE.split("\n")
                 cor_lines = CORRECT_SUMMARY_EXAMPLE.split("\n")
                 diff_idxs = [i for i, (e, c) in enumerate(zip(err_lines, cor_lines)) if e != c]
@@ -210,6 +206,8 @@ if st.session_state.stage not in (
                 })
 
             elif cmd in ("출처 알려줘", "출처알려줘"):
+                # ------- 점수 증가 로직 --------
+                st.session_state.score += 25
                 st.session_state.chat.append({
                     "role": "assistant",
                     "content": (
@@ -238,15 +236,21 @@ if st.session_state.stage not in (
             height=200
         )
         if st.button("최종 제출"):
-            fixed, total, pct, grade = evaluate_summary(
-                final,
-                st.session_state.error_origin
-            )
+            # ------- 점수를 기반으로 등급 부여 --------
+            score = st.session_state.score
+            if score == 100:
+                grade = "A+"
+            elif score == 75:
+                grade = "B+"
+            else:
+                grade = "C+"
+
             st.session_state.chat.append({
                 "role": "assistant",
-                "content": f"✅ 수정된 오류: {fixed}/{total}개 (정확도 {pct:.1f}%) → 등급 **{grade}**"
+                "content": f"✅ 점수: {score} → 등급 **{grade}**"
             })
             st.session_state.stage = "finished"
+
 
     # --- 10) 게임 종료 후 '다음' 버튼으로 감사 화면으로 ---
     if st.session_state.stage == "finished":
