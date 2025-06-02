@@ -258,10 +258,10 @@ if st.session_state.stage not in (
         )
         if st.button("최종 제출"):
             # ------- 점수를 기반으로 등급 부여 --------
-            score = st.session_state.score
-            if score == 100:
+            int score = st.session_state.score
+            if score >= 100:
                 grade = "A+"
-            elif score == 75:
+            elif score >= 75:
                 grade = "B+"
             else:
                 grade = "C+"
