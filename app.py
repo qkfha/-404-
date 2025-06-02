@@ -198,7 +198,7 @@ if st.session_state.stage not in (
                 })
                 st.session_state.chat.append({
                     "role": "assistant",
-                    "content": "이제 **최종 제출** 버튼을 누르신다면, 저 AI 챗봇 마니봇이 요약해드렸던 내용으로 자동 제출을 도와드리겠습니다!"
+                    "content": "이제 **최종 제출** 버튼을 누르신다면, 저 AI 챗봇 마니봇이 요약해드렸던 내용으로 자동 제출을 도와드리겠습니다!\n"
                            + "**혹시 버튼을 눌렀지만 점수가 안 나오신다면 다시 한번 눌러주세요**❗"
                 })
                 st.session_state.stage = "awaiting_final"
@@ -217,7 +217,7 @@ if st.session_state.stage not in (
 
                 st.session_state.chat.append({
                     "role": "assistant",
-                    "content": "아, 죄송해요! 제가 잘못 이해했네요. 과제 내용을 다시 요약해드리겠습니다...! :\n\n" + fixed_summary +
+                    "content": "아, 죄송해요! 제가 잘못 이해했네요. 과제 내용을 다시 요약해드리겠습니다 :\n\n" + fixed_summary +
                     "\n\n😀 다음으로 옵션(**'과제함 이동', '원문 재확인할게', '출처 알려줘', '요약 재확인해줘'**) 중 원하시는 명령을 얘기해주세요."
                 })
 
