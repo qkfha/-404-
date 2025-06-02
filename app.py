@@ -142,16 +142,16 @@ if st.session_state.stage not in (
 
     # --- 5) 첫 인사 (awaiting_task) ---
     if st.session_state.stage == "awaiting_task" and not st.session_state.chat:
-        st.session_state.chat.append({
-            "role": "assistant",
-            "content": "안녕하세요! 당신의 과제를 도와줄 AI봇입니다!😊\n"
-            + "요약할 과제의 내용을 확인하시려면 **'요약 과제'** 라고 입력해 주세요.(띄어쓰기는 상관하지 않습니다)"
-        })
-    for msg in st.session_state.chat:
-        with st.chat_message(msg["role"]):
-            st.markdown(msg["content"])
-            if msg["role"] == "assistant" and msg["content"].startswith("안녕하세요!"):
-                st.image("image.png", width=90)
+        image_path = "image.png"
+        html_content = f"""
+        안녕하세요! 당신의 과제를 도와줄 AI봇입니다!😊<br>
+        요약할 과제의 내용을 확인하시려면 <b>'요약 과제'</b> 라고 입력해 주세요.<br>
+        (띄어쓰기는 상관하지 않습니다)<br><br>
+        <img src="data:image/png;base64,{open(image_path, "rb").read().encode("base64").decode()}" width="150">
+        """
+
+    with st.chat_message("assistant"):
+        st.markdown(html_content, unsafe_allow_html=True)
 
     # --- 7) 입력 처리 & 단계 전환 ---
     user_input = st.chat_input("명령어를 입력하세요")
