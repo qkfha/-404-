@@ -175,6 +175,10 @@ if st.session_state.stage not in (
                            + "\n".join(f"- {s}" for s in sentences)
                            + "\n\n➜ 제가 대신 원문을 요약해드리기를 원하신다면 **‘요약해줘’** 라고 입력해 주세요."
             })
+            st.session_state.chat.append({
+                    "role": "assistant",
+                    "content": "이제'최종 제출' 버튼을 누르신다면, 저 AI 챗봇 마니봇이 요약해드렸던 내용으로 자동 제출을 도와드리겠습니다!\n**혹시 버튼을 눌렀지만 점수가 안 나오신다면 다시 한번 눌러주세요**❗"
+                })
             st.session_state.stage = "awaiting_summary"
 
         # 7-2) 오류 포함 예시 제시
@@ -250,12 +254,7 @@ if st.session_state.stage not in (
 
     # --- 8) 최종 제출 폼 (awaiting_final 단계에서만) ---
     if st.session_state.stage == "awaiting_final":
-        st.session_state.chat.append({
-                    "role": "assistant",
-                    "content": "이제'최종 제출' 버튼을 누르신다면, 저 AI 챗봇 마니봇이 요약해드렸던 내용으로 자동 제출을 도와드리겠습니다!\n**혹시 버튼을 눌렀지만 점수가 안 나오신다면 다시 한번 눌러주세요**❗"
-                })
-        
-        if st.button("최종 제출(두번 눌러야 점수가 나옵니다)"):
+        if st.button("최종 제출"):
             # ------- 점수를 기반으로 등급 부여 --------
             score = int(st.session_state.score)
             if score == 100:
