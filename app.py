@@ -278,27 +278,6 @@ if st.session_state.stage == "thank_you":
     """
 
     components.html(js_code, height=50)
-
-# --- 12) 설문 도입 ---
-if st.session_state.stage == "survey_intro":
-    
-    st.stop()
-
-# --- 13) 기본 정보 수집 ---
-if st.session_state.stage == "survey_info":
-    st.header("1. 기본 정보")
-    age = st.selectbox("연령대를 선택해주세요", ["10대", "20대", "30대", "40대", "50대 이상"])
-    if st.button("다음", key="info_next"):
-        st.session_state.age = age
-        st.session_state.stage = "survey_gpt"
-    st.stop()
-
-
-    # 버튼 클릭 시 completed 플래그를 켭니다.
-    if st.button("끝내기", key="final_submit"):
-        st.session_state.completed = True
-
-    # completed 플래그가 켜져 있으면 메시지를 항상 보여줍니다.
-    if st.session_state.get("completed", False):
-        st.success("모든 과정이 완료되었습니다! 참여해주셔서 감사합니다😊")
+    if st.button("다음 (설문 없이 진행)", key="thankyou_next"):
+        st.session_state.stage = "survey_intro"
     st.stop()
