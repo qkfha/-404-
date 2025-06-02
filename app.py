@@ -150,8 +150,9 @@ if st.session_state.stage not in (
     if st.session_state.stage == "awaiting_task" and not st.session_state.chat:
         image_path = "image.png"
         html_content = f"""
-        안녕하세요! 당신의 과제를 도와줄 AI봇입니다!😊<br>
-        요약할 과제의 내용을 확인하시려면 <b>'요약 과제'</b> 라고 입력해 주세요.<br>
+        안녕하세요! 저는 AI 마니봇입니다😊<br>
+        완벽한 AI는 아니지만 최선을 다해서 당신의 과제를 도와드리겠습니다!
+        먼저 요약할 과제의 내용을 확인하시려면 <b>'요약 과제'</b> 라고 입력해 주세요.<br>
         (띄어쓰기는 상관하지 않습니다)<br><br>
         <img src="data:image/png;base64,{img_b64}" width="150">
         """
@@ -183,7 +184,7 @@ if st.session_state.stage not in (
                 "content": (
                     "📝 **요약본**\n\n"  # 여기서 두 줄 바꿈
                     + ERROR_SUMMARY_EXAMPLE
-                    + "\n\n➜ 다음으로 옵션(**'과제함 이동', '다시 요약해줘', '출처 알려줘'**) 중 하나를 입력하세요."
+                    + "\n\n😀 다음으로 옵션(**'과제함 이동', '원문 재확인할게', '출처 알려줘', '요약 재확인해줘'**) 중 원하시는 명령을 얘기해주세요."
                 )
             })
             st.session_state.stage = "awaiting_option"
@@ -198,7 +199,7 @@ if st.session_state.stage not in (
                 })
                 st.session_state.stage = "awaiting_final"
 
-            elif cmd in ("다시 요약해줘", "다시요약해줘", "다시 요약", "다시요약"):
+            elif cmd in ("요약 재확인해줘", "요약재확인해줘"):
                 # ------- 점수 증가 로직 --------
                 st.session_state.score += 25
                 err_lines = ERROR_SUMMARY_EXAMPLE.split("\n")
@@ -212,8 +213,8 @@ if st.session_state.stage not in (
 
                 st.session_state.chat.append({
                     "role": "assistant",
-                    "content": "🛠 다시 요약본 :\n\n" + fixed_summary +
-                    "\n\n➜ 옵션(**'과제함 이동', '다시 요약해줘', '출처 알려줘'**) 중 하나를 입력하세요."
+                    "content": "아, 죄송해요! 제가 잘못 이해했네요. 과제 내용을 다시 요약해드리겠습니다...! :\n\n" + fixed_summary +
+                    "\n\n😀 다음으로 옵션(**'과제함 이동', '원문 재확인할게', '출처 알려줘', '요약 재확인해줘'**) 중 원하시는 명령을 얘기해주세요."
                 })
 
             elif cmd in ("출처 알려줘", "출처알려줘"):
@@ -224,14 +225,23 @@ if st.session_state.stage not in (
                     "content": (
                         "https://www.donga.com/news/It/article/all/20240329/124227094/1\n\n"
                         "출처: 동아일보·동아닷컴, 남시현 기자, 2024-03-29 21:59"
-                        "\n\n➜ 옵션(**'과제함 이동', '다시 요약해줘', '출처 알려줘'**) 중 하나를 입력하세요."
+                        "\n\n😀 다음으로 옵션(**'과제함 이동', '원문 재확인할게', '출처 알려줘', '요약 재확인해줘'**) 중 원하시는 명령을 얘기해주세요."
                     )
+                })
+            elif cmd in ("원문 재확인할게", "원문재확인할게"):
+                # ------- 점수 증가 로직 --------
+                st.session_state.score += 25
+                st.session_state.chat.append({
+                    "role": "assistant",
+                    "content": "📄 **요약하실 과제 원문은 다음과 같습니다. 혹시 저의 요약 내용에 오류가 있는걸까요?🧐**\n"
+                           + "\n".join(f"- {s}" for s in sentences)
+                           + "\n\n😀 다음으로 옵션(**'과제함 이동', '원문 재확인할게', '출처 알려줘', '요약 재확인해줘'**) 중 원하시는 명령을 얘기해주세요."
                 })
 
             else:
                 st.session_state.chat.append({
                     "role": "assistant",
-                    "content": "죄송해요, 그 명령은 사용할 수 없습니다."
+                    "content": "죄송해요😟, 그건 저의 도움 밖의 명령입니다."
                 })
 
     # --- 8) 채팅 로그 렌더링 (가장 마지막) ---
