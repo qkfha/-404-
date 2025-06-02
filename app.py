@@ -87,7 +87,7 @@ if "start_time" not in st.session_state:
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
     st.title("🎮 AI 할루시네이션 게임")
-    st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 **정확하게** 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요!")
+    st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 **정확하게** 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요")
     if st.button("다음", key="start_next"):
         st.session_state.start_time = int(time.time())
         st.session_state.stage      = "awaiting_task"
@@ -155,9 +155,8 @@ if st.session_state.stage not in (
         (띄어쓰기는 상관하지 않습니다)<br><br>
         <img src="data:image/png;base64,{img_b64}" width="150">
         """
-
-    with st.chat_message("assistant"):
-        st.markdown(html_content, unsafe_allow_html=True)
+        with st.chat_message("assistant"):
+            st.markdown(html_content, unsafe_allow_html=True)
 
     # --- 7) 입력 처리 & 단계 전환 ---
     user_input = st.chat_input("명령어를 입력하세요")
@@ -171,9 +170,9 @@ if st.session_state.stage not in (
 
             st.session_state.chat.append({
                 "role": "assistant",
-                "content": "📄 **요약 과제 (원문)**\n"
+                "content": "📄 **요약하실 과제 원문은 다음과 같습니다🧐**\n"
                            + "\n".join(f"- {s}" for s in sentences)
-                           + "\n\n➜ 이제 **‘요약해줘’** 를 입력해 주세요."
+                           + "\n\n➜ 제가 대신 원문을 요약해드리기를 원하신다면 **‘요약해줘’** 라고 입력해 주세요."
             })
             st.session_state.stage = "awaiting_summary"
 
