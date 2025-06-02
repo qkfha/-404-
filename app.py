@@ -174,10 +174,6 @@ if st.session_state.stage not in (
                 "content": "📄 **요약하실 과제 원문은 다음과 같습니다🧐**\n"
                            + "\n".join(f"- {s}" for s in sentences)
                            + "\n\n➜ 제가 대신 원문을 요약해드리기를 원하신다면 **‘요약해줘’** 라고 입력해 주세요."
-            })
-            st.session_state.chat.append({
-                    "role": "assistant",
-                    "content": "이제'최종 제출' 버튼을 누르신다면, 저 AI 챗봇 마니봇이 요약해드렸던 내용으로 자동 제출을 도와드리겠습니다!\n**혹시 버튼을 눌렀지만 점수가 안 나오신다면 다시 한번 눌러주세요**❗"
                 })
             st.session_state.stage = "awaiting_summary"
 
@@ -199,6 +195,11 @@ if st.session_state.stage not in (
                 st.session_state.chat.append({
                     "role": "assistant",
                     "content": "과제함으로 이동했습니다."
+                })
+                st.session_state.chat.append({
+                    "role": "assistant",
+                    "content": "이제 **최종 제출** 버튼을 누르신다면, 저 AI 챗봇 마니봇이 요약해드렸던 내용으로 자동 제출을 도와드리겠습니다!"
+                           + "**혹시 버튼을 눌렀지만 점수가 안 나오신다면 다시 한번 눌러주세요**❗"
                 })
                 st.session_state.stage = "awaiting_final"
 
