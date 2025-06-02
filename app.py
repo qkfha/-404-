@@ -147,11 +147,11 @@ if st.session_state.stage not in (
             "content": "안녕하세요! 당신의 과제를 도와줄 AI봇입니다!😊\n"
             + "요약할 과제의 내용을 확인하시려면 **'요약 과제'** 라고 입력해 주세요.(띄어쓰기는 상관하지 않습니다)"
         })
-        st.image(
-            "image.png",
-            caption="",
-            width=150
-        )
+    for msg in st.session_state.chat:
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["content"])
+            if msg["role"] == "assistant" and msg["content"].startswith("안녕하세요!"):
+                st.image("image.png", width=90)
 
     # --- 7) 입력 처리 & 단계 전환 ---
     user_input = st.chat_input("명령어를 입력하세요")
