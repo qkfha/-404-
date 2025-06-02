@@ -2,7 +2,15 @@ import streamlit as st
 import random
 import time
 import re
+import base64
 import streamlit.components.v1 as components
+
+# 이미지 경로
+image_path = "image.png"
+
+# 이미지 파일을 열어 base64 인코딩 (한 번만 실행)
+with open(image_path, "rb") as img_file:
+    img_base64 = base64.b64encode(img_file.read()).decode()
 
 # --- 1) 원문 데이터 & 유틸리티 함수 ---
 original_text = """할루시네이션은 환각 또는 망상 등으로 불리며, AI가 생성한 정보에 허위 또는 날조된 정보가 포함되는 현상이다. 
@@ -147,7 +155,7 @@ if st.session_state.stage not in (
         안녕하세요! 당신의 과제를 도와줄 AI봇입니다!😊<br>
         요약할 과제의 내용을 확인하시려면 <b>'요약 과제'</b> 라고 입력해 주세요.<br>
         (띄어쓰기는 상관하지 않습니다)<br><br>
-        <img src="data:image/png;base64,{open(image_path, "rb").read().encode("base64").decode()}" width="150">
+        <img src="data:image/png;base64,{img_base64}" width="150">
         """
 
     with st.chat_message("assistant"):
