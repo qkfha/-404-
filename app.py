@@ -265,22 +265,26 @@ if st.session_state.stage == "thank_you":
     저희는 서울여자대학교 바롬종합설계 404: Ethics Not Found 팀입니다.  
     AI 할루시네이션 체험 게임에 참여해 주셔서 감사합니다😊  
     참여 내역과 이후 설문은 **오직 연구 목적으로만** 사용됩니다.
+    아래의 참여하기 버튼으로 구글폼 설문을 작성하실 수 있습니다.
     """)
-    if st.button("다음", key="thankyou_next"):
+    google_form_link = "https://forms.gle/3L6uL5ZavUcmjN1XA"
+    js_code = f"""
+    <script>
+        function redirectToForm() {{
+            window.open('{google_form_link}', '_blank');
+        }}
+    </script>
+    <button onclick="redirectToForm()">설문 참여하기</button>
+    """
+
+    components.html(js_code, height=50)
+    if st.button("다음 (설문 없이 진행)", key="thankyou_next"):
         st.session_state.stage = "survey_intro"
     st.stop()
 
 # --- 12) 설문 도입 ---
 if st.session_state.stage == "survey_intro":
-    st.header("본 설문에 동의하십니까?")
-    st.write("""
-    본 설문은 AI 오류 인식 수준과  
-    비판적 수용 정도를 조사합니다.  
-    익명으로 진행되며, 수집된 응답은 연구 목적으로만 사용됩니다.  
-    문의: ssong9318@swu.ac.kr
-    """)
-    if st.button("동의", key="survey_agree"):
-        st.session_state.stage = "survey_info"
+    
     st.stop()
 
 # --- 13) 기본 정보 수집 ---
@@ -292,32 +296,6 @@ if st.session_state.stage == "survey_info":
         st.session_state.stage = "survey_gpt"
     st.stop()
 
-# --- 14) GPT 사용 습관 점검표 ---
-if st.session_state.stage == "survey_gpt":
-    st.header("2. GPT 사용 습관 점검표")
-    opts = [
-        "나는 GPT가 알려준 정보를 검증하지 않고 바로 믿은 적이 있다.",
-        "나는 GPT가 제공한 답변을 별다른 의심 없이 과제나 글에 사용한 적이 있다.",
-        "GPT가 틀릴 수도 있다는 사실을 종종 잊는다.",
-        "출처 확인 없이 GPT 답변을 복사해 사용한 적이 있다.",
-        "GPT를 사용할 때 항상 여러 자료를 함께 참고한다.",
-        "GPT가 잘못된 정보를 줄 경우, 스스로 오류를 찾아본 적이 있다.",
-        "민감한 개인정보를 GPT에 입력한 적이 있다.",
-        "AI가 만든 내용이 정말 정확한지 확인하는 습관이 있다.",
-        "AI를 참고할 때, 나만의 생각이나 판단을 추가하려고 노력한다."
-    ]
-    checked = [o for o in opts if st.checkbox(o)]
-    pledge = st.text_input("✍️ 앞으로의 다짐 (예: 정확도를 반드시 확인하겠습니다.)")
-    if st.button("다음", key="gpt_next"):
-        st.session_state.checked = checked
-        st.session_state.pledge  = pledge
-        st.session_state.stage   = "survey_consent"
-    st.stop()
-
-# --- 15) 최종 동의 ---
-if st.session_state.stage == "survey_consent":
-    st.header("3. 최종 동의")
-    st.write("수집된 설문 결과는 연구 목적으로만 사용됩니다.")
 
     # 버튼 클릭 시 completed 플래그를 켭니다.
     if st.button("끝내기", key="final_submit"):
