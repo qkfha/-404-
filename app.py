@@ -194,8 +194,7 @@ if st.session_state.stage not in (
             if cmd in ("과제함 이동", "과제함이동"):
                 st.session_state.chat.append({
                     "role": "assistant",
-                    "content": "과제함으로 이동했습니다.\n최종 요약문을 작성한 뒤 ‘최종 제출’을 눌러주세요." +
-                    "\n\n(완성된 요약문을 복사 후 붙여넣기 하여 과제함에 입력해 주세요.)"
+                    "content": "과제함으로 이동했습니다."
                 })
                 st.session_state.stage = "awaiting_final"
 
@@ -251,11 +250,11 @@ if st.session_state.stage not in (
 
     # --- 8) 최종 제출 폼 (awaiting_final 단계에서만) ---
     if st.session_state.stage == "awaiting_final":
-        final = st.text_area(
-            "최종 요약문을 입력하세요:",
-            value="\n".join(f"- {s}" for s in st.session_state.errors),
-            height=200
-        )
+        st.session_state.chat.append({
+                    "role": "assistant",
+                    "content": "이제'최종 제출' 버튼을 누르신다면, 저 AI 챗봇 마니봇이 요약해드렸던 내용으로 자동 제출을 도와드리겠습니다!\n**혹시 버튼을 눌렀지만 점수가 안 나오신다면 다시 한번 눌러주세요**❗"
+                })
+        
         if st.button("최종 제출(두번 눌러야 점수가 나옵니다)"):
             # ------- 점수를 기반으로 등급 부여 --------
             score = int(st.session_state.score)
@@ -283,7 +282,7 @@ if st.session_state.stage not in (
 
     # --- 10) 게임 종료 후 '다음' 버튼으로 감사 화면으로 ---
     if st.session_state.stage == "finished":
-        if st.button("게임 마무리하기", key="to_thankyou"):
+        if st.button("다음", key="to_thankyou"):
             st.session_state.stage = "thank_you"
         st.stop()
 
