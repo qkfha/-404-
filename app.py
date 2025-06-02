@@ -81,7 +81,7 @@ if "start_time" not in st.session_state:
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
     st.title("🎮 AI 할루시네이션 게임")
-    st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 '정확하게' 요약 과제를 제출하라")
+    st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 '정확하게' 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요!")
     if st.button("다음", key="start_next"):
         st.session_state.start_time = int(time.time())
         st.session_state.stage      = "awaiting_task"
@@ -144,11 +144,20 @@ if st.session_state.stage not in (
     if st.session_state.stage == "awaiting_task" and not st.session_state.chat:
         st.session_state.chat.append({
             "role": "assistant",
-            "content": "안녕하세요! **'요약 과제'** 또는 **'요약과제'** 라고 입력해 주세요."
+            "content": "안녕하세요! 당신의 과제를 도와줄 AI봇입니다!😊\n"
+            + "요약할 과제의 내용을 확인하시려면 **'요약 과제'** 라고 입력해 주세요.(띄어쓰기는 상관하지 않습니다)"
         })
+        with st.chat_message("assistant"):
+            st.write(st.session_state.chat[-1]["content"])
+            # 이미지 추가
+            st.image(
+                "image.png",
+                caption="Welcome to the AI Hallucination Game!",
+                width=300
+            )
 
     # --- 7) 입력 처리 & 단계 전환 ---
-    user_input = st.chat_input("명령어를 입력하세요 (예: 요약 과제)")
+    user_input = st.chat_input("명령어를 입력하세요")
     if user_input:
         cmd = user_input.strip()
         st.session_state.chat.append({"role": "user", "content": cmd})
