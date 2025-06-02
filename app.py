@@ -219,7 +219,7 @@ if st.session_state.stage not in (
 
             elif cmd in ("출처 알려줘", "출처알려줘"):
                 # ------- 점수 증가 로직 --------
-                st.session_state.score += 25
+                st.session_state.score += 20
                 st.session_state.chat.append({
                     "role": "assistant",
                     "content": (
@@ -230,7 +230,7 @@ if st.session_state.stage not in (
                 })
             elif cmd in ("원문 재확인할게", "원문재확인할게"):
                 # ------- 점수 증가 로직 --------
-                st.session_state.score += 25
+                st.session_state.score += 5
                 st.session_state.chat.append({
                     "role": "assistant",
                     "content": "📄 **요약하실 과제 원문은 다음과 같습니다. 혹시 저의 요약 내용에 오류가 있는걸까요?🧐**\n"
@@ -256,15 +256,23 @@ if st.session_state.stage not in (
             value="\n".join(f"- {s}" for s in st.session_state.errors),
             height=200
         )
-        if st.button("최종 제출"):
+        if st.button("최종 제출(두번 눌러야 점수가 나옵니다)"):
             # ------- 점수를 기반으로 등급 부여 --------
             score = int(st.session_state.score)
-            if score >= 100:
+            if score == 100:
                 grade = "A+"
-            elif score >= 75:
+            elif score == 95:
+                grade = "A"
+            elif score == 80:
                 grade = "B+"
-            else:
+            elif score == 75:
+                grade = "B"
+            elif score == 70:
                 grade = "C+"
+            elif score == 55:
+                grade = "C"
+            else:
+                grade = "F"
 
             st.session_state.chat.append({
                 "role": "assistant",
@@ -275,7 +283,7 @@ if st.session_state.stage not in (
 
     # --- 10) 게임 종료 후 '다음' 버튼으로 감사 화면으로 ---
     if st.session_state.stage == "finished":
-        if st.button("다음", key="to_thankyou"):
+        if st.button("게임 마무리하기", key="to_thankyou"):
             st.session_state.stage = "thank_you"
         st.stop()
 
