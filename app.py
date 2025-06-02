@@ -277,6 +277,8 @@ if st.session_state.stage == "thank_you":
     <button onclick="redirectToForm()">설문 참여하기</button>
     """
 
+    components.html(js_code, height=50)
+
 # --- 12) 설문 도입 ---
 if st.session_state.stage == "survey_intro":
     
