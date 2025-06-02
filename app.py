@@ -267,6 +267,7 @@ if st.session_state.stage == "thank_you":
     참여 내역과 이후 설문은 **오직 연구 목적으로만** 사용됩니다.
     아래의 참여하기 버튼으로 구글폼 설문을 작성하실 수 있습니다.
     """)
+    
     google_form_link = "https://forms.gle/3L6uL5ZavUcmjN1XA"
     js_code = f"""
     <script>
@@ -276,8 +277,6 @@ if st.session_state.stage == "thank_you":
     </script>
     <button onclick="redirectToForm()">설문 참여하기</button>
     """
-
+    
     components.html(js_code, height=50)
-    if st.button("다음 (설문 없이 진행)", key="thankyou_next"):
-        st.session_state.stage = "survey_intro"
     st.stop()
