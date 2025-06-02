@@ -196,11 +196,7 @@ if st.session_state.stage not in (
                     "role": "assistant",
                     "content": "과제함으로 이동했습니다."
                 })
-                st.session_state.chat.append({
-                    "role": "assistant",
-                    "content": "이제 **최종 제출** 버튼을 누르신다면, 저 AI 챗봇 마니봇이 요약해드렸던 내용으로 자동 제출을 도와드리겠습니다!\n"
-                           + "**혹시 버튼을 눌렀지만 점수가 안 나오신다면 다시 한번 눌러주세요**❗"
-                })
+                
                 st.session_state.stage = "awaiting_final"
 
             elif cmd in ("요약 재확인해줘", "요약재확인해줘"):
@@ -227,6 +223,7 @@ if st.session_state.stage not in (
                 st.session_state.chat.append({
                     "role": "assistant",
                     "content": (
+                        "네 해당 요약과제의 출처를 알려드리겠습니다."
                         "https://www.donga.com/news/It/article/all/20240329/124227094/1\n\n"
                         "출처: 동아일보·동아닷컴, 남시현 기자, 2024-03-29 21:59"
                         "\n\n😀 다음으로 옵션(**'과제함 이동', '원문 재확인할게', '출처 알려줘', '요약 재확인해줘'**) 중 원하시는 명령을 얘기해주세요."
@@ -255,6 +252,12 @@ if st.session_state.stage not in (
 
     # --- 8) 최종 제출 폼 (awaiting_final 단계에서만) ---
     if st.session_state.stage == "awaiting_final":
+        st.session_state.chat.append({
+                    "role": "assistant",
+                    "content": "이제 **최종 제출** 버튼을 누르신다면, 저 AI 챗봇 마니봇이 요약해드렸던 내용으로 자동 제출을 도와드리겠습니다!\n"
+                           + "**혹시 버튼을 눌렀지만 점수가 안 나오신다면 다시 한번 눌러주세요**❗"
+                })
+        
         if st.button("최종 제출"):
             # ------- 점수를 기반으로 등급 부여 --------
             score = int(st.session_state.score)
