@@ -273,6 +273,8 @@ if st.session_state.stage not in (
                 grade = "C+"
             elif score == 55:
                 grade = "C"
+            elif score > 100:
+                grade = "100점을 넘은 만점!!!"
             else:
                 grade = "F"
 
