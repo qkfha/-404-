@@ -15,9 +15,6 @@ with open(image_path2, "rb") as f:
     bg_bytes = f.read()
     bg_base64 = base64.b64encode(bg_bytes).decode()
 
-# 페이지 전체 설정
-st.set_page_config(layout="wide")
-
 # --- 1) 원문 데이터 & 유틸리티 함수 ---
 original_text = """할루시네이션은 환각 또는 망상 등으로 불리며, AI가 생성한 정보에 허위 또는 날조된 정보가 포함되는 현상이다. 
 할루시네이션은 실제 사실과 AI를 거친 정보가 다른 내재성 환각과 실제로 존재하지 않는 사실을 창작해서 제공하는 외재적 환각으로 나뉜다.
