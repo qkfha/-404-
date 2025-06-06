@@ -84,8 +84,34 @@ st.set_page_config(layout="wide")
 if "start_time" not in st.session_state:
     st.session_state.start_time = None
 
+# 이미지 경로: back.jpg
+with open("back.jpg", "rb") as f:
+    bg_bytes = f.read()
+    bg_base64 = base64.b64encode(bg_bytes).decode()
+    
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
+    # CSS 스타일 추가
+    page_bg_css = f"""
+    <style>
+    [data-testid="stAppViewContainer"] > .main {{
+        background-image: url("data:image/jpg;base64,{bg_base64}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }}
+
+    [data-testid="stHeader"] {{
+        background: rgba(0, 0, 0, 0);
+    }}
+
+    [data-testid="stToolbar"] {{
+        right: 2rem;
+    }}
+    </style>
+    """
+    st.markdown(page_bg_css, unsafe_allow_html=True)
+
     st.title("🎮 AI 할루시네이션 게임")
     st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 **정확하게** 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요")
     if st.button("다음", key="start_next"):
