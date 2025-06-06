@@ -94,6 +94,8 @@ st.set_page_config(layout="wide")
 if "start_time" not in st.session_state:
     st.session_state.start_time = None
 
+width_percent = st.slider("이미지 너비 조절 (%)", min_value=10, max_value=100, value=50)
+
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
     
@@ -103,13 +105,14 @@ if st.session_state.stage == "start":
     <div style='
         position: fixed;
         top: 0;
-        left: 0;
-        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: {width_percent}%;
         height: 100%;
-        z-index: -1;
+        z-index: 0;
     '>
         <img src="data:image/jpeg;base64,{bg_base64}" 
-             style='width: 100%; height: 100%; object-fit: cover; opacity: 0.5;' />
+             style='width: 100%; height: 100%; opacity: 0.5;' />
     </div>
     """,
     unsafe_allow_html=True,
