@@ -99,7 +99,7 @@ if st.session_state.stage == "start":
     """
     <style>
     .reportview-container {
-        background: url("data:image/jpg;base64,{bg_base64}");
+        background: url("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbqQ86h%2FbtsOrD3rUdp%2FySo4MWrfxqNn4rPj6LmKLk%2Fimg.jpg");
     }
    </style>
     """,
