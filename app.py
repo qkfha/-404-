@@ -127,11 +127,22 @@ if "start_time" not in st.session_state:
 if st.session_state.stage == "start":
     add_bg_from_url() 
     st.title("")
-    
-    if st.button("시작하기", key="start_next"):
+    st.markdown("""
+    <div class="custom-container">
+        <p><strong>게임 설명:</strong> 제한 시간 5분 내로 최대한 정확하게 요약 결과를 제출하여
+        최대한 ⭐ 높은 점수 ⭐를 노려보세요!</p>
+
+        <form action="" method="post">
+            <button class="start-button" type="submit">시작하기</button>
+        </form>
+    </div>
+    """, unsafe_allow_html=True)
+
+    if st.form_submit_button("시작하기", type="primary"):
         st.session_state.start_time = int(time.time())
-        st.session_state.stage      = "awaiting_task"
+        st.session_state.stage = "awaiting_task"
     st.stop()
+
 
 if st.session_state.stage not in (
     "thank_you",
