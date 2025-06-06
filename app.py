@@ -21,9 +21,10 @@ def add_bg_from_url():
          <style>
          .stApp {{
              background-image: url("https://blog.kakaocdn.net/dn/bqQ86h/btsOrD3rUdp/ySo4MWrfxqNn4rPj6LmKLk/img.jpg");
-             background-attachment: fixed;
-             background-size: cover
-             
+             background-repeat: no-repeat;
+            background-position: top center;
+            background-size: 100% auto;
+            background-attachment: fixed;
          }}
          </style>
          """,
