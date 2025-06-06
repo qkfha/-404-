@@ -32,29 +32,28 @@ def add_bg_from_url():
             visibility: hidden;
         }}
         .custom-container {{
-            margin-top: 700px; /* 이미지 아래 위치 */
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.85);
-            padding: 30px;
-            border-radius: 12px;
-            width: 60%;
-            margin-left: auto;
-            margin-right: auto;
-        }}
-
-        .start-button {{
-            margin-top: 20px;
-            font-size: 20px;
-            padding: 12px 24px;
-            border-radius: 8px;
-            border: none;
-            background-color: #ffa500;
-            color: white;
-            cursor: pointer;
-        }}
-        .start-button:hover {{
-            background-color: #e59400;
-        }}
+             margin-top: 700px;
+             text-align: center;
+             background-color: rgba(255, 255, 255, 0.85);
+             padding: 30px;
+             border-radius: 12px;
+             width: 60%;
+             margin-left: auto;
+             margin-right: auto;
+         }}
+         .start-button {{
+             margin-top: 20px;
+             font-size: 20px;
+             padding: 12px 24px;
+             border-radius: 8px;
+             border: none;
+             background-color: #ffa500;
+             color: white;
+             cursor: pointer;
+         }}
+         .start-button:hover {{
+             background-color: #e59400;
+         }}
          </style>
          """,
          unsafe_allow_html=True
@@ -140,19 +139,22 @@ if "start_time" not in st.session_state:
 if st.session_state.stage == "start":
     add_bg_from_url() 
     st.title("")
-    st.markdown("""
-    <div class="custom-container">
-        <p><strong>게임 설명:</strong> 제한 시간 5분 내로 최대한 정확하게 요약 결과를 제출하여
-        최대한 ⭐ 높은 점수 ⭐를 노려보세요!</p>
-    </div>
-    """, unsafe_allow_html=True)
-
+    # 폼 내부에서 처리
     with st.form("start_form"):
-        submitted = st.form_submit_button("시작하기")
+        st.markdown("""
+        <div class="custom-box">
+            <p><strong>게임 설명:</strong> 제한 시간 5분 내로 최대한 정확하게 요약 결과를 제출하여
+            최대한 ⭐ 높은 점수 ⭐를 노려보세요!</p>
+            <button class="custom-button" type="submit">시작하기</button>
+        </div>
+        """, unsafe_allow_html=True)
+
+        submitted = st.form_submit_button("", type="primary")
         if submitted:
             st.session_state.start_time = int(time.time())
             st.session_state.stage = "awaiting_task"
             st.experimental_rerun()
+
     st.stop()
 
 
