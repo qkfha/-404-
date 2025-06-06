@@ -15,6 +15,22 @@ with open(image_path2, "rb") as img_file:
     img_bytes2 = img_file.read()
     bg_base64 = base64.b64encode(img_bytes2).decode()
 
+def add_bg_from_url():
+    st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background-image: url("https://blog.kakaocdn.net/dn/bqQ86h/btsOrD3rUdp/ySo4MWrfxqNn4rPj6LmKLk/img.jpg");
+             background-attachment: fixed;
+             background-size: cover
+             
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+
+
 
 # --- 1) 원문 데이터 & 유틸리티 함수 ---
 original_text = """할루시네이션은 환각 또는 망상 등으로 불리며, AI가 생성한 정보에 허위 또는 날조된 정보가 포함되는 현상이다. 
@@ -92,25 +108,9 @@ if "start_time" not in st.session_state:
 
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
+    add_bg_from_url() 
     st.title("🎮 AI 할루시네이션 게임")
     st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 **정확하게** 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요")
-    
-    def add_bg_from_url():
-    st.markdown(
-         f"""
-         <style>
-         .stApp {{
-             background-image: url("https://blog.kakaocdn.net/dn/bqQ86h/btsOrD3rUdp/ySo4MWrfxqNn4rPj6LmKLk/img.jpg");
-             background-attachment: fixed;
-             background-size: cover
-             
-         }}
-         </style>
-         """,
-         unsafe_allow_html=True
-     )
-
-add_bg_from_url() 
     
     if st.button("다음", key="start_next"):
         st.session_state.start_time = int(time.time())
