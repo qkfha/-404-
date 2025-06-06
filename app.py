@@ -97,8 +97,8 @@ if st.session_state.stage == "start":
     img_html = f"""
     <style>
     #resizable-img {{
-        position: fixed;
-        bottom: 0;
+        position: absolute;
+        bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
         width: 150px;
