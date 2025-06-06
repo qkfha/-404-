@@ -22,16 +22,15 @@ def add_bg_from_url():
          .stApp {{
              background-image: url("https://blog.kakaocdn.net/dn/bqQ86h/btsOrD3rUdp/ySo4MWrfxqNn4rPj6LmKLk/img.jpg");
              background-repeat: no-repeat;
-            background-position: top center;
-            background-size: 100% auto;
-            background-attachment: fixed;
-
-            padding-top: 300rem;
+             background-position: top center;
+             background-size: 100% auto;
+             background-attachment: fixed;
+             padding-top: 300rem;
          }}
-          header, .css-18ni7ap.e8zbici2 {{
-            visibility: hidden;
-        }}
-        .custom-container {{
+         header, .css-18ni7ap.e8zbici2 {{
+             visibility: hidden;
+         }}
+         .custom-container {{
              margin-top: 200px;
              text-align: center;
              background-color: rgba(255, 255, 255, 0.8);
@@ -40,6 +39,20 @@ def add_bg_from_url():
              width: 60%;
              margin-left: auto;
              margin-right: auto;
+         }}
+         @media (max-width: 768px) {{
+             .custom-container {{
+                 width: 90%;
+                 margin-top: 100px;
+                 padding: 20px;
+             }}
+         }}
+         @media (max-width: 480px) {{
+             .custom-container {{
+                 width: 95%;
+                 margin-top: 50px;
+                 padding: 15px;
+             }}
          }}
          .button-wrapper {{
              text-align: center;
