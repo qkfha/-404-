@@ -90,15 +90,28 @@ st.set_page_config(layout="wide")
 if "start_time" not in st.session_state:
     st.session_state.start_time = None
 
-width_percent = st.slider("이미지 너비 조절 (%)", min_value=10, max_value=100, value=50)
-
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
     st.title("🎮 AI 할루시네이션 게임")
     st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 **정확하게** 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요")
     img = f"""
-        <img src="data:image/png;base64,{bg_base64}" width="150">
-        """
+    <style>
+    #resizable-img {{
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: auto;
+        resize: both;          /* 크기 조절 가능 */
+        overflow: auto;
+        z-index: 9999;
+        border: 2px solid #666;
+        background: white;
+    }}
+    /style>
+    <img id="resizable-img" src="data:image/png;base64,{bg_base64}" />
+    """
     st.markdown(img, unsafe_allow_html=True)
     
     if st.button("다음", key="start_next"):
