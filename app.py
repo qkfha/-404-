@@ -144,10 +144,6 @@ if st.session_state.stage == "start":
     <div class="custom-container">
         <p><strong>게임 설명:</strong> 제한 시간 5분 내로 최대한 정확하게 요약 결과를 제출하여
         최대한 ⭐ 높은 점수 ⭐를 노려보세요!</p>
-
-        <form action="" method="post">
-            <button class="start-button" type="submit">시작하기</button>
-        </form>
     </div>
     """, unsafe_allow_html=True)
 
