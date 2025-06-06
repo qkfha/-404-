@@ -44,8 +44,7 @@ def add_bg_from_url():
          .start-button {{
             display: block;
             margin-top: 2px;
-            margin-left: 60%;
-            margin-right: 60%;
+            text-align: center;
             font-size: 20px;
             padding: 12px 24px;
             border-radius: 8px;
