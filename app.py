@@ -15,6 +15,12 @@ with open(image_path2, "rb") as img_file:
     img_bytes2 = img_file.read()
     bg_base64 = base64.b64encode(img_bytes2).decode()
 
+if "img_width" not in st.session_state:
+    st.session_state.img_width = 150
+
+width = st.slider("이미지 가로 크기 조절", 50, 500, st.session_state.img_width)
+st.session_state.img_width = width
+
 
 # --- 1) 원문 데이터 & 유틸리티 함수 ---
 original_text = """할루시네이션은 환각 또는 망상 등으로 불리며, AI가 생성한 정보에 허위 또는 날조된 정보가 포함되는 현상이다. 
@@ -90,28 +96,15 @@ st.set_page_config(layout="wide")
 if "start_time" not in st.session_state:
     st.session_state.start_time = None
 
+img_html = f"""
+<img src="data:image/jpeg;base64,{bg_base64}" style="width:{width}px; height:auto; border:2px solid #666;" />
+"""
+
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
     st.title("🎮 AI 할루시네이션 게임")
     st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 **정확하게** 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요")
-    img_html = f"""
-    <style>
-    #resizable-img {{
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 150px;
-        height: auto;
-        resize: both;          /* 크기 조절 가능 */
-        overflow: auto;
-        z-index: 9999;
-        border: 2px solid #666;
-        background: white;
-    }}
-    /style>
-    <img id="resizable-img" src="data:image/png;base64,{bg_base64}" />
-    """
+
     st.markdown(img_html, unsafe_allow_html=True)
     
     if st.button("다음", key="start_next"):
