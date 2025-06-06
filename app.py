@@ -26,8 +26,11 @@ def add_bg_from_url():
             background-size: 100% auto;
             background-attachment: fixed;
 
-            padding-top: 100px;
+            padding-top: 300rem;
          }}
+          header, .css-18ni7ap.e8zbici2 {{
+            visibility: hidden;
+        }}
 
          </style>
          """,
