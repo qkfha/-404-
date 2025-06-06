@@ -95,16 +95,22 @@ if st.session_state.stage == "start":
     st.title("🎮 AI 할루시네이션 게임")
     st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 **정확하게** 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요")
     
+    def add_bg_from_url():
     st.markdown(
-    """
-    <style>
-    .reportview-container {
-        background: url("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbqQ86h%2FbtsOrD3rUdp%2FySo4MWrfxqNn4rPj6LmKLk%2Fimg.jpg");
-    }
-   </style>
-    """,
-    unsafe_allow_html=True
-)
+         f"""
+         <style>
+         .stApp {{
+             background-image: url("https://blog.kakaocdn.net/dn/bqQ86h/btsOrD3rUdp/ySo4MWrfxqNn4rPj6LmKLk/img.jpg");
+             background-attachment: fixed;
+             background-size: cover
+             
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+
+add_bg_from_url() 
     
     if st.button("다음", key="start_next"):
         st.session_state.start_time = int(time.time())
