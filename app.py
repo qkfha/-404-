@@ -31,6 +31,16 @@ def add_bg_from_url():
           header, .css-18ni7ap.e8zbici2 {{
             visibility: hidden;
         }}
+        .custom-container {{
+             margin-top: 500px;  /* 원하는 위치로 조정 */
+             text-align: center;
+             background-color: rgba(255, 255, 255, 0.8);
+             padding: 20px;
+             border-radius: 10px;
+             width: 60%;
+             margin-left: auto;
+             margin-right: auto;
+         }}
 
          </style>
          """,
