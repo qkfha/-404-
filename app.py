@@ -15,6 +15,9 @@ with open(image_path2, "rb") as f:
     bg_bytes = f.read()
     bg_base64 = base64.b64encode(bg_bytes).decode()
 
+# 페이지 전체 설정
+st.set_page_config(layout="wide")
+
 # --- 1) 원문 데이터 & 유틸리티 함수 ---
 original_text = """할루시네이션은 환각 또는 망상 등으로 불리며, AI가 생성한 정보에 허위 또는 날조된 정보가 포함되는 현상이다. 
 할루시네이션은 실제 사실과 AI를 거친 정보가 다른 내재성 환각과 실제로 존재하지 않는 사실을 창작해서 제공하는 외재적 환각으로 나뉜다.
@@ -91,37 +94,27 @@ if "start_time" not in st.session_state:
 
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
-    # CSS 스타일 추가
-    page_bg_css = f"""
-    <style>
-    html, body {{
+    
+    # ✅ HTML로 배경 이미지 설정 (div 사용)
+    st.markdown(
+    f"""
+    <div style='
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
         height: 100%;
-        margin: 0;
-        padding: 0;
-        background-image: url("data:image/jpg;base64,{bg_base64}");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }}
-
-    [data-testid="stAppViewContainer"] {{
-        background-color: rgba(255, 255, 255, 0.0);
-    }}
-
-    [data-testid="stHeader"] {{
-        background: rgba(0, 0, 0, 0);
-    }}
-
-    [data-testid="stToolbar"] {{
-        right: 2rem;
-    }}
-    </style>
-    """
-    st.markdown(page_bg_css, unsafe_allow_html=True)
-    st.image("back.jpg")
+        z-index: -1;
+        '>
+        <img src="data:image/jpg;base64,{bg_base64}"
+             style='width: 100%; height: 100%; object-fit: cover; opacity: 0.15;'>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
     st.title("🎮 AI 할루시네이션 게임")
     st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 **정확하게** 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요")
+    
     if st.button("다음", key="start_next"):
         st.session_state.start_time = int(time.time())
         st.session_state.stage      = "awaiting_task"
