@@ -146,14 +146,12 @@ if st.session_state.stage == "start":
         <div class="custom-box">
             <p><strong>게임 설명:</strong> 제한 시간 5분 내로 최대한 정확하게 요약 결과를 제출하여
             최대한 ⭐ 높은 점수 ⭐를 노려보세요!</p>
-            <button class="custom-button" type="submit">시작하기</button>
         </div>
         """, unsafe_allow_html=True)
 
-        submitted = st.form_submit_button("시작하기", type="primary")
-        if submitted:
+        if st.button("시작하기", key="start_next"):
             st.session_state.start_time = int(time.time())
-            st.session_state.stage = "awaiting_task"
+            st.session_state.stage      = "awaiting_task"
             st.experimental_rerun()
 
     st.stop()
