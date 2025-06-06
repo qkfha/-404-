@@ -151,7 +151,7 @@ if st.session_state.stage == "start":
         """, unsafe_allow_html=True)
     
     # 버튼을 form 대신 직접 배치하고 중앙 정렬 div로 감싸기
-    st.markdown('<div class="button-wrapper">', unsafe_allow_html=True)
+    st.markdown('<div style="text-align: center; margin-top: 20px;">', unsafe_allow_html=True)
     if st.button("시작하기", key="start_btn"):
         st.session_state.start_time = int(time.time())
         st.session_state.stage = "awaiting_task"
