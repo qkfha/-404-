@@ -10,6 +10,11 @@ with open(image_path, "rb") as img_file:
     img_bytes = img_file.read()
     img_b64 = base64.b64encode(img_bytes).decode()
 
+image_path2 = "back.jpg"
+with open(image_path2, "rb") as f:
+    bg_bytes = f.read()
+    bg_base64 = base64.b64encode(bg_bytes).decode()
+
 # --- 1) 원문 데이터 & 유틸리티 함수 ---
 original_text = """할루시네이션은 환각 또는 망상 등으로 불리며, AI가 생성한 정보에 허위 또는 날조된 정보가 포함되는 현상이다. 
 할루시네이션은 실제 사실과 AI를 거친 정보가 다른 내재성 환각과 실제로 존재하지 않는 사실을 창작해서 제공하는 외재적 환각으로 나뉜다.
@@ -84,21 +89,24 @@ st.set_page_config(layout="wide")
 if "start_time" not in st.session_state:
     st.session_state.start_time = None
 
-# 이미지 경로: back.jpg
-with open("back.jpg", "rb") as f:
-    bg_bytes = f.read()
-    bg_base64 = base64.b64encode(bg_bytes).decode()
-    
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
     # CSS 스타일 추가
     page_bg_css = f"""
     <style>
-    [data-testid="stAppViewContainer"] > .main {{
+    html, body {{
+        height: 100%;
+        margin: 0;
+        padding: 0;
         background-image: url("data:image/jpg;base64,{bg_base64}");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        background-attachment: fixed;
+    }}
+
+    [data-testid="stAppViewContainer"] {{
+        background-color: rgba(255, 255, 255, 0.0);
     }}
 
     [data-testid="stHeader"] {{
@@ -174,7 +182,6 @@ if st.session_state.stage not in (
 
     # --- 5) 첫 인사 (awaiting_task) ---
     if st.session_state.stage == "awaiting_task" and not st.session_state.chat:
-        image_path = "image.png"
         html_content = f"""
         안녕하세요! 저는 AI 마니봇입니다😊<br>
         완벽한 AI는 아니지만 최선을 다해서 당신의 과제를 도와드리겠습니다!
