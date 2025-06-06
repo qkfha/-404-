@@ -25,11 +25,10 @@ def add_bg_from_url():
             background-position: top center;
             background-size: 100% auto;
             background-attachment: fixed;
+
+            padding-top: 5rem;
          }}
-         header, .css-18ni7ap.e8zbici2 {{
-            visibility: hidden;
-        }}
-        
+
          </style>
          """,
          unsafe_allow_html=True
