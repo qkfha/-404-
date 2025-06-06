@@ -94,10 +94,17 @@ if "start_time" not in st.session_state:
 if st.session_state.stage == "start":
     st.title("🎮 AI 할루시네이션 게임")
     st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 **정확하게** 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요")
-    img = f"""
-        <img src="data:image/png;base64,{bg_base64}" width="150">
-        """
-    st.markdown(img, unsafe_allow_html=True)
+    
+    st.markdown(
+    """
+    <style>
+    .reportview-container {
+        background: url("data:image/jpg;base64,{bg_base64}");
+    }
+   </style>
+    """,
+    unsafe_allow_html=True
+)
     
     if st.button("다음", key="start_next"):
         st.session_state.start_time = int(time.time())
