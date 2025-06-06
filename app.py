@@ -32,9 +32,9 @@ def add_bg_from_url():
             visibility: hidden;
         }}
         .custom-container {{
-             margin-top: 700px;
+             margin-top: 900px;
              text-align: center;
-             background-color: rgba(255, 255, 255, 0.85);
+             background-color: rgba(255, 255, 255, 0.5);
              padding: 30px;
              border-radius: 12px;
              width: 60%;
@@ -44,10 +44,11 @@ def add_bg_from_url():
          .start-button {{
              margin-top: 20px;
              font-size: 20px;
+             text-align: center;
              padding: 12px 24px;
              border-radius: 8px;
              border: none;
-             background-color: #ffa500;
+             background-color: #ededed;
              color: white;
              cursor: pointer;
          }}
