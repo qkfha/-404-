@@ -154,6 +154,7 @@ if st.session_state.stage == "start":
     if st.form_submit_button("시작하기", type="primary"):
         st.session_state.start_time = int(time.time())
         st.session_state.stage = "awaiting_task"
+        st.experimental_rerun()
     st.stop()
 
 
