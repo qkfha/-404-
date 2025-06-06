@@ -32,7 +32,7 @@ def add_bg_from_url():
             visibility: hidden;
         }}
         .custom-container {{
-             margin-top: 900px;
+             margin-top: 10px;
              text-align: center;
              background-color: rgba(255, 255, 255, 1);
              padding: 30px;
