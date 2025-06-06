@@ -143,7 +143,7 @@ if st.session_state.stage == "start":
     # 폼 내부에서 처리
     with st.form("start_form"):
         st.markdown("""
-        <div class="custom-box">
+        <div class="custom-container">
             <p><strong>게임 설명:</strong> 제한 시간 5분 내로 최대한 정확하게 요약 결과를 제출하여
             최대한 ⭐ 높은 점수 ⭐를 노려보세요!</p>
         </div>
