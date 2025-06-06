@@ -32,7 +32,7 @@ def add_bg_from_url():
             visibility: hidden;
         }}
         .custom-container {{
-             margin-top: 500px;  /* 원하는 위치로 조정 */
+             margin-top: 800px;  /* 원하는 위치로 조정 */
              text-align: center;
              background-color: rgba(255, 255, 255, 0.8);
              padding: 20px;
@@ -127,7 +127,7 @@ if "start_time" not in st.session_state:
 if st.session_state.stage == "start":
     add_bg_from_url() 
     st.title("")
-    st.markdown("<br><br><br><br>**게임 설명:** 제한 시간 **5분** 내로 최대한 **정확하게** 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요")
+    st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 **정확하게** 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요")
     
     if st.button("다음", key="start_next"):
         st.session_state.start_time = int(time.time())
