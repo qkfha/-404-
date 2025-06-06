@@ -10,7 +10,7 @@ with open(image_path, "rb") as img_file:
     img_bytes = img_file.read()
     img_b64 = base64.b64encode(img_bytes).decode()
 
-image_path2 = "back.jpg"
+image_path2 = "back.png"
 with open(image_path2, "rb") as f:
     bg_bytes = f.read()
     bg_base64 = base64.b64encode(bg_bytes).decode()
