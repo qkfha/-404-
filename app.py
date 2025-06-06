@@ -10,10 +10,15 @@ with open(image_path, "rb") as img_file:
     img_bytes = img_file.read()
     img_b64 = base64.b64encode(img_bytes).decode()
 
-image_path2 = "back.jpg"
-with open(image_path2, "rb") as f:
-    bg_bytes = f.read()
-    bg_base64 = base64.b64encode(bg_bytes).decode()
+
+@st.cache_data
+def load_image_base64(path):
+    with open(path, "rb") as f:
+        return base64.b64encode(f.read()).decode()
+    
+bg_base64 = load_image_base64("back.jpg")
+
+
 
 # --- 1) 원문 데이터 & 유틸리티 함수 ---
 original_text = """할루시네이션은 환각 또는 망상 등으로 불리며, AI가 생성한 정보에 허위 또는 날조된 정보가 포함되는 현상이다. 
@@ -102,12 +107,12 @@ if st.session_state.stage == "start":
         width: 100%;
         height: 100%;
         z-index: -1;
-        '>
-        <img src="data:image/jpg;base64,{bg_base64}"
-             style='width: 100%; height: 100%; object-fit: cover; opacity: 0.15;'>
+    '>
+        <img src="data:image/jpeg;base64,{bg_base64}" 
+             style='width: 100%; height: 100%; object-fit: cover; opacity: 0.5;' />
     </div>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
     st.title("🎮 AI 할루시네이션 게임")
     st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 **정확하게** 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요")
