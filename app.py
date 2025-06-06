@@ -22,16 +22,15 @@ def add_bg_from_url():
          .stApp {{
              background-image: url("https://blog.kakaocdn.net/dn/bqQ86h/btsOrD3rUdp/ySo4MWrfxqNn4rPj6LmKLk/img.jpg");
              background-repeat: no-repeat;
-            background-position: top center;
-            background-size: 100% auto;
-            background-attachment: fixed;
-
-            padding-top: 300rem;
+             background-position: top center;
+             background-size: 100% auto;
+             background-attachment: fixed;
+             padding-top: 300rem;
          }}
-          header, .css-18ni7ap.e8zbici2 {{
-            visibility: hidden;
-        }}
-        .custom-container {{
+         header, .css-18ni7ap.e8zbici2 {{
+             visibility: hidden;
+         }}
+         .custom-container {{
              margin-top: 10px;
              text-align: center;
              background-color: rgba(255, 255, 255, 0.8);
@@ -41,23 +40,11 @@ def add_bg_from_url():
              margin-left: auto;
              margin-right: auto;
          }}
-         .button-wrapper {{
-             text-align: center;
-             margin-top: 20px;
+         /* 폼 내부 버튼 중앙 정렬 */
+         form > div:nth-child(2) {{
+             display: flex;
+             justify-content: center;
          }}
-         .start-button > button {{
-             font-size: 20px;
-             padding: 12px 40px;
-             border-radius: 8px;
-             border: none;
-             background-color: #e59400;
-             color: white;
-             cursor: pointer;
-         }}
-         .start-button > button:hover {{
-             background-color: #cf7d00;
-         }}
-
          </style>
          """,
          unsafe_allow_html=True
@@ -143,21 +130,19 @@ if "start_time" not in st.session_state:
 if st.session_state.stage == "start":
     add_bg_from_url() 
     st.title("")
-    st.markdown("""
-        <div class="custom-container">
-            <p><strong>게임 설명:</strong> 제한 시간 5분 내로 최대한 정확하게 요약 결과를 제출하여
-            최대한 ⭐ 높은 점수 ⭐를 노려보세요!</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    # 버튼을 form 대신 직접 배치하고 중앙 정렬 div로 감싸기
-    st.markdown('<div style="text-align: center; margin-top: 20px;">', unsafe_allow_html=True)
-    if st.button("시작하기", key="start_btn"):
-        st.session_state.start_time = int(time.time())
-        st.session_state.stage = "awaiting_task"
-        st.experimental_rerun()
-    st.markdown('</div>', unsafe_allow_html=True)
-
+    with st.form("start_form"):
+        st.markdown("""
+            <div class="custom-container">
+                <p><strong>게임 설명:</strong> 제한 시간 5분 내로 최대한 정확하게 요약 결과를 제출하여
+                최대한 ⭐ 높은 점수 ⭐를 노려보세요!</p>
+            </div>
+            """, unsafe_allow_html=True)
+        
+        submitted = st.form_submit_button("시작하기")
+        if submitted:
+            st.session_state.start_time = int(time.time())
+            st.session_state.stage = "awaiting_task"
+            st.experimental_rerun()
     st.stop()
 
 
