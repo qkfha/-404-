@@ -149,7 +149,7 @@ if st.session_state.stage == "start":
         </div>
         """, unsafe_allow_html=True)
 
-        submitted = st.form_submit_button("", type="primary")
+        submitted = st.form_submit_button("시작하기", type="primary")
         if submitted:
             st.session_state.start_time = int(time.time())
             st.session_state.stage = "awaiting_task"
