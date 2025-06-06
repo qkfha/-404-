@@ -10,14 +10,10 @@ with open(image_path, "rb") as img_file:
     img_bytes = img_file.read()
     img_b64 = base64.b64encode(img_bytes).decode()
 
-
-@st.cache_data
-def load_image_base64(path):
-    with open(path, "rb") as f:
-        return base64.b64encode(f.read()).decode()
-    
-bg_base64 = load_image_base64("back.jpg")
-
+image_path2 = "back.jpg"
+with open(image_path2, "rb") as img_file:
+    img_bytes2 = img_file.read()
+    bg_base64 = base64.b64encode(img_bytes2).decode()
 
 
 # --- 1) 원문 데이터 & 유틸리티 함수 ---
@@ -98,27 +94,12 @@ width_percent = st.slider("이미지 너비 조절 (%)", min_value=10, max_value
 
 # --- 4) 시작 화면 ---
 if st.session_state.stage == "start":
-    
-    # ✅ HTML로 배경 이미지 설정 (div 사용)
-    st.markdown(
-    f"""
-    <div style='
-        position: fixed;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: {width_percent}%;
-        height: 100%;
-        z-index: 0;
-    '>
-        <img src="data:image/jpeg;base64,{bg_base64}" 
-             style='width: 100%; height: 100%; opacity: 0.5;' />
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
     st.title("🎮 AI 할루시네이션 게임")
     st.markdown("**게임 설명:** 제한 시간 **5분** 내로 최대한 **정확하게** 요약 과제를 제출하여 최대한 ⭐높은 점수⭐를 획득하세요")
+    img = f"""
+        <img src="data:image/png;base64,{bg_base64}" width="150">
+        """
+    st.markdown(img, unsafe_allow_html=True)
     
     if st.button("다음", key="start_next"):
         st.session_state.start_time = int(time.time())
