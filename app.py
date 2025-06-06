@@ -26,7 +26,7 @@ def add_bg_from_url():
             background-size: 100% auto;
             background-attachment: fixed;
 
-            padding-top: 5rem;
+            padding-top: 10px;
          }}
 
          </style>
