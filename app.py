@@ -34,7 +34,7 @@ def add_bg_from_url():
         .custom-container {{
              margin-top: 10px;
              text-align: center;
-             background-color: rgba(255, 255, 255, 0.65);
+             background-color: rgba(255, 255, 255, 0.8);
              padding: 30px;
              border-radius: 12px;
              width: 60%;
@@ -42,6 +42,8 @@ def add_bg_from_url():
              margin-right: auto;
          }}
          .start-button {{
+            display: block;
+            margin: 20px auto 0 auto;
              margin-top: 20px;
              font-size: 20px;
              padding: 12px 24px;
