@@ -44,14 +44,14 @@ def add_bg_from_url():
          .start-button {{
             display: block;
             margin: 20px auto 0 auto;
-             margin-top: 20px;
-             font-size: 20px;
-             padding: 12px 24px;
-             border-radius: 8px;
-             border: none;
-             background-color: #ededed;
-             color: white;
-             cursor: pointer;
+            margin-top: 20px;
+            font-size: 20px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            background-color: #ededed;
+            color: white;
+            cursor: pointer;
          }}
          .start-button:hover {{
              background-color: #e59400;
