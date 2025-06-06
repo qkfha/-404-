@@ -32,16 +32,29 @@ def add_bg_from_url():
             visibility: hidden;
         }}
         .custom-container {{
-             margin-top: 800px;  /* 원하는 위치로 조정 */
-             text-align: center;
-             background-color: rgba(255, 255, 255, 0.8);
-             padding: 20px;
-             border-radius: 10px;
-             width: 60%;
-             margin-left: auto;
-             margin-right: auto;
-         }}
+            margin-top: 700px; /* 이미지 아래 위치 */
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 12px;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }}
 
+        .start-button {{
+            margin-top: 20px;
+            font-size: 20px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            background-color: #ffa500;
+            color: white;
+            cursor: pointer;
+        }}
+        .start-button:hover {{
+            background-color: #e59400;
+        }}
          </style>
          """,
          unsafe_allow_html=True
